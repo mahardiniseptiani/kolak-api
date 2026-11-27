@@ -3,6 +3,8 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ItemController;
+use App\Http\Controllers\Api\FavoriteController;
+use App\Http\Controllers\Api\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // ===== Publik (tanpa login) =====
@@ -22,4 +24,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/items', [ItemController::class, 'store']);
     Route::put('/items/{id}', [ItemController::class, 'update'])->whereNumber('id');
     Route::delete('/items/{id}', [ItemController::class, 'destroy'])->whereNumber('id');
+    
+    Route::get('/favorites', [FavoriteController::class, 'index']);
+    Route::post('/items/{id}/favorite', [FavoriteController::class, 'store'])->whereNumber('id');
+    Route::delete('/items/{id}/favorite', [FavoriteController::class, 'destroy'])->whereNumber('id');
+    
+    Route::put('/profile', [ProfileController::class, 'update']);
+    Route::post('/profile/photo', [ProfileController::class, 'updatePhoto']);
 });
